@@ -1,0 +1,31 @@
+import matplotlib; matplotlib.use("Agg")
+import matplotlib.pyplot as plt, numpy as np
+from scipy.stats import norm
+plt.rcParams.update({"font.size": 9, "figure.dpi": 150})
+
+N_TESTS, ALPHA, POWER = 1450, 0.05, 0.80
+za = norm.ppf(1 - ALPHA/N_TESTS/2); zn = norm.ppf(1 - ALPHA/2); zp = norm.ppf(POWER)
+n = np.arange(20, 1300)
+det_b = np.tanh((za+zp)/np.sqrt(n-3))
+det_n = np.tanh((zn+zp)/np.sqrt(n-3))
+
+fig, ax = plt.subplots(figsize=(5.8, 3.4))
+ax.plot(n, det_b, color="#a63d40", lw=1.6, label="Bonferroni (N=1,450) + 80% power")
+ax.plot(n, det_n, color="#7f9bb5", lw=1.4, ls="--", label="nominal 5% + 80% power")
+ax.axvline(116, color="#555", lw=0.8, ls=":")
+ax.axvline(233, color="#555", lw=0.8, ls=":")
+ax.text(120, 0.72, "$n_{eff}$=116\n(h=10d)", fontsize=7, color="#555")
+ax.text(240, 0.72, "$n_{eff}$=233\n(h=5d)", fontsize=7, color="#555")
+ax.axhspan(0.21, 0.23, color="#31567a", alpha=0.22)
+ax.text(600, 0.245, "best graded candidates (tail IC 0.21–0.23)", fontsize=7.5, color="#31567a")
+ax.scatter([116, 233], [0.437, 0.317], color="#a63d40", zorder=5, s=28)
+ax.annotate("0.44", (116, 0.437), textcoords="offset points", xytext=(8, 4), fontsize=8, color="#a63d40")
+ax.annotate("0.32", (233, 0.317), textcoords="offset points", xytext=(8, 4), fontsize=8, color="#a63d40")
+ax.set_xscale("log"); ax.set_ylim(0, 0.85)
+ax.set_xlabel("effective sample size $n_{eff}$ (log scale)")
+ax.set_ylabel("smallest detectable |IC|")
+ax.set_title("What the search could have certified, versus what it found", fontsize=9)
+ax.legend(frameon=False, fontsize=7.5, loc="upper right")
+ax.spines[["top","right"]].set_visible(False)
+fig.tight_layout(); fig.savefig("fig_p3_power.pdf")
+print("ok")
