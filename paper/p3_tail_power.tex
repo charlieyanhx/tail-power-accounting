@@ -133,10 +133,14 @@ the candidate features looked like on the preceding day. Only two began from a g
 state; the remaining thirteen were preceded by elevated generic risk features. This sounds
 encouraging until one examines the same states' conditional means: they are three to thirteen
 times baseline, in every year of the sample. The states that forecast the tail also forecast
-the premium. A feature with this property cannot fund a de-sizing rule, because acting on it
-forfeits more premium in expectation than it saves in tail losses---which is what we find:
-every walk-forward overlay we tested has an improvement interval containing zero. Detection was
-never the binding problem.
+the premium. This does not by itself condemn a de-sizing rule: what matters is the \emph{ratio}
+of tail loss avoided to premium forfeited, and a state whose tail scales faster than its mean
+would still pay to act on. The question is therefore quantitative, and in our data the ratio is
+unfavourable---every walk-forward overlay we tested has an improvement interval containing zero.
+We state that as the absence of a demonstrable gain rather than as a demonstrated loss: our
+intervals are wide enough to admit a small improvement we lack the episodes to resolve. What
+the census establishes is narrower but sufficient for the search's purpose---detection was never
+the binding problem, so better detection is not the lever.
 
 \textbf{Stress is pre-priced.} Protection---put wings, downside skew---was 4--16\% more
 expensive conditional on candidate separators firing. The market charges for the same
@@ -157,7 +161,11 @@ We therefore propose registering, in advance, the requirement
 computed against an explicit forward-mean confound target constructed on the same panel and
 horizon. In our search this single gate removes every premium-confound candidate while
 retaining the (uncertifiable but mechanistically coherent) near-misses---a better trade than
-raw multiplicity correction, which removes both. The gate is cheap: it requires one additional
+raw multiplicity correction, which removes both. We flag the obvious circularity: the threshold
+was set by inspection on the same search whose candidates it is then reported to separate, so
+that separation is a description of our data, not an out-of-sample validation of the number~2.
+What transfers is the \emph{form} of the gate---ratio to a named confound target, registered
+before results---not our particular threshold. The gate is cheap: it requires one additional
 target column and one additional ratio per test, and it forces the researcher to name, before
 seeing results, the conditional-mean confound that would otherwise be discovered late and
 rationalized.
